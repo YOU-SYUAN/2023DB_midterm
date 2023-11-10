@@ -48,8 +48,9 @@ class Member():
         DB.commit()
         
     def get_order(userid):
-        sql = 'SELECT * FROM ORDER_LIST WHERE MID = :id ORDER BY ORDERTIME DESC'
+        sql = 'SELECT * FROM ORDER_LIST WHERE MID = :id ORDER BY REQUESTTIME DESC'
         return DB.fetchall(DB.execute_input( DB.prepare(sql), {'id':userid}))
+    
     
     def get_role(userid):
         sql = 'SELECT IDENTITY, NAME FROM MEMBER WHERE MID = :id '
@@ -163,6 +164,12 @@ class Order_List():
     def get_orderdetail():
         sql = 'SELECT O.OID, P.PNAME, R.SALEPRICE, R.AMOUNT FROM ORDER_LIST O, RECORD R, PRODUCT P WHERE O.TNO = R.TNO AND R.PID = P.PID'
         return DB.fetchall(DB.execute(DB.connect(), sql))
+
+class Reservation():
+    def get_Rid():
+        sql = 'SELECT RESERVATION.RID, RESERVATION.RDATE, STUDENT.SNAME, COURSE.PRICE * COURSE.COURSENUM AS TOTAL_PRICE FROM RESERVATION JOIN STUDENT ON RESERVATION.STUDENTID = STUDENT.STUDENTID JOIN COURSE ON RESERVATION.COURSEID = COURSE.COURSEID'
+        return DB.fetchall(DB.execute(DB.connect(), sql))
+
 
 
 class Analysis():
