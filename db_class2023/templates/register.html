@@ -15,7 +15,12 @@
             <p class="mb-3">
                 姓名：<input type="text" name="username" required/>
             </p>
-    
+            <p class="mb-3">
+                信箱：<input type="email" name="email" required/>
+            </p>
+            <p class="mb-3">
+                年齡：<input type="number" name="age" required/>
+            </p>
             <p class="mb-3">
                 帳號：<input type="text" name="account" required/>
                 {% with messages = get_flashed_messages() %}
@@ -26,7 +31,7 @@
                 {% endif %}
                 {% endwith %}
             </p>
-    
+            
             <p class="mb-4">
                 密碼：<input type="password" name="password" required/>
             </p>

@@ -30,15 +30,15 @@ class DB():
 
 class Member():
     def get_member(account):
-        sql = "SELECT ACCOUNT, PASSWORD, MID, IDENTITY, NAME FROM MEMBER WHERE ACCOUNT = :id"
+        sql = "SELECT STUDENTID, SNAME, SEMAIL, SAGE, PASSWORD, IDENTITY, ACCOUNT FROM STUDENT WHERE ACCOUNT = :id"
         return DB.fetchall(DB.execute_input(DB.prepare(sql), {'id' : account}))
     
     def get_all_account():
-        sql = "SELECT ACCOUNT FROM MEMBER"
+        sql = "SELECT ACCOUNT FROM STUDENT"
         return DB.fetchall(DB.execute(DB.connect(), sql))
 
     def create_member(input):
-        sql = 'INSERT INTO MEMBER VALUES (null, :name, :account, :password, :identity)'
+        sql = 'INSERT INTO STUDENT VALUES (null, :name, :email, :age, :password, :identity, :account)'
         DB.execute_input(DB.prepare(sql), input)
         DB.commit()
     
@@ -52,7 +52,7 @@ class Member():
         return DB.fetchall(DB.execute_input( DB.prepare(sql), {'id':userid}))
     
     def get_role(userid):
-        sql = 'SELECT IDENTITY, NAME FROM MEMBER WHERE MID = :id '
+        sql = 'SELECT IDENTITY, SNAME FROM STUDENT WHERE STUDENTID = :id '
         return DB.fetchone(DB.execute_input( DB.prepare(sql), {'id':userid}))
 
 class Cart():
@@ -76,15 +76,15 @@ class Cart():
        
 class Product():
     def count():
-        sql = 'SELECT COUNT(*) FROM PRODUCT'
+        sql = 'SELECT COUNT(*) FROM COURSE'
         return DB.fetchone(DB.execute( DB.connect(), sql))
     
     def get_product(pid):
-        sql ='SELECT * FROM PRODUCT WHERE PID = :id'
+        sql ='SELECT * FROM COURSE WHERE COURSEID = :id'
         return DB.fetchone(DB.execute_input(DB.prepare(sql), {'id': pid}))
 
     def get_all_product():
-        sql = 'SELECT * FROM PRODUCT'
+        sql = 'SELECT * FROM COURSE'
         return DB.fetchall(DB.execute( DB.connect(), sql))
     
     def get_name(pid):
@@ -92,23 +92,23 @@ class Product():
         return DB.fetchone(DB.execute_input( DB.prepare(sql), {'id':pid}))[0]
 
     def add_product(input):
-        sql = 'INSERT INTO PRODUCT VALUES (:pid, :name, :price, :category, :description)'
+        sql = 'INSERT INTO COURSE VALUES (:pid, :price, :courseDate, :description, :name, :courseTime, :Week, :teacher, :category)'
 
         DB.execute_input(DB.prepare(sql), input)
         DB.commit()
     
     def delete_product(pid):
-        sql = 'DELETE FROM PRODUCT WHERE PID = :id '
+        sql = 'DELETE FROM COURSE WHERE COURSEID = :id '
         DB.execute_input(DB.prepare(sql), {'id': pid})
         DB.commit()
 
     def update_product(input):
-        sql = 'UPDATE PRODUCT SET PNAME=:name, PRICE=:price, CATEGORY=:category, PDESC=:description WHERE PID=:pid'
+        sql = 'UPDATE COURSE SET PRICE=:price, STARTTIME=:courseDate, DESCRIPTION=:description, COURSENAME=:name, COURSETIME=:courseTime, WEEKDAYS=:Week, TEACHER=:teacher, COURSENUM=:category WHERE COURSEID=:pid'
         DB.execute_input(DB.prepare(sql), input)
         DB.commit()
 
     def get_product_by_name(name):
-        sql = 'SELECT * FROM PRODUCT WHERE PNAME = :name'
+        sql = 'SELECT * FROM COURSE WHERE COURSENAME = :name'
         return DB.fetchone(DB.execute_input(DB.prepare(sql), {'name': name}))
     
 class Record():

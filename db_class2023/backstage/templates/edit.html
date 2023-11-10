@@ -15,33 +15,109 @@
   <form method="post" enctype=multipart/form-data action={{ url_for('manager.edit') }}>
     <table class="table table-bordered">
       <tr>
-        <th>商品編號</th>
-        <td><input class="form-control" type="text" value="{{ data.商品編號 }}" name="pid" readonly class="id_input"></td>
+        <th>課程編號</th>
+        <td><input class="form-control" type="text" value="{{ data.課程編號 }}" name="pid" readonly class="id_input"></td>
       </tr>
       <tr>
-        <th>商品名稱</th>
-        <td><input class="form-control" type="text" value="{{ data.商品名稱 }}" name="name" required></td>
+        <th>課程名稱</th>
+        <td><input class="form-control" type="text" value="{{ data.課程名稱 }}" name="name" required></td>
       </tr>
       <tr>
-        <th>單價</th>
-        <td><input class="form-control" type="text" value="{{ data.單價 }}" name="price" required></td>
+        <th>教師名稱</th>
+        <td><input class="form-control" type="text" value="{{ data.教師名稱 }}" name="teacher" required></td>
       </tr>
       <tr>
-        <th>類別</th>
+        <th>開課日期</th>
+        <td><input class="form-control" type="date" value="{{ data.開課日期 }}" name="courseDate" required></td>
+      </tr>
+      <tr>
+        <th>開課時間</th>
+        <td><input class="form-control" type="text" value="{{ data.開課時間 }}" name="courseTime" required></td>
+      </tr>
+      <tr>
+        <th>請選擇星期幾</th>
+        <td>
+          <select class="form-control" name="Week">
+            {% if data.每週開課日 == '星期一' %}
+              <option value="星期日">星期日</option>
+              <option value="星期六">星期六</option>
+              <option value="星期五">星期五</option>
+              <option value="星期四">星期四</option>
+              <option value="星期三">星期三</option>
+              <option value="星期二">星期二</option>
+              <option value="星期一" selected>星期一</option>
+            {% elif data.每週開課日 == '星期二' %}
+              <option value="星期日">星期日</option>
+              <option value="星期六">星期六</option>
+              <option value="星期五">星期五</option>
+              <option value="星期四">星期四</option>
+              <option value="星期三">星期三</option>
+              <option value="星期一">星期一</option>
+              <option value="星期二" selected>星期二</option>
+            {% elif data.每週開課日 == '星期三' %}
+              <option value="星期日">星期日</option>
+              <option value="星期六">星期六</option>
+              <option value="星期五">星期五</option>
+              <option value="星期四">星期四</option>
+              <option value="星期二">星期二</option>
+              <option value="星期一">星期一</option>
+              <option value="星期三" selected>星期三</option>
+            {% elif data.每週開課日 == '星期四' %}
+              <option value="星期日">星期日</option>
+              <option value="星期六">星期六</option>
+              <option value="星期五">星期五</option>
+              <option value="星期三">星期三</option>
+              <option value="星期二">星期二</option>
+              <option value="星期一">星期一</option>
+              <option value="星期四" selected>星期四</option>
+            {% elif data.每週開課日 == '星期五' %}
+              <option value="星期日">星期日</option>
+              <option value="星期六">星期六</option>
+              <option value="星期四">星期四</option>
+              <option value="星期三">星期三</option>
+              <option value="星期二">星期二</option>
+              <option value="星期一">星期一</option>
+              <option value="星期五" selected>星期五</option>
+            {% elif data.每週開課日 == '星期六' %}
+              <option value="星期日">星期日</option>
+              <option value="星期五">星期五</option>
+              <option value="星期四">星期四</option>
+              <option value="星期三">星期三</option>
+              <option value="星期二">星期二</option>
+              <option value="星期一">星期一</option>
+              <option value="星期六" selected>星期六</option>   
+            {% else %}
+              <option value="星期日">星期六</option>
+              <option value="星期五">星期五</option>
+              <option value="星期四">星期四</option>
+              <option value="星期三">星期三</option>
+              <option value="星期六">星期二</option>
+              <option value="星期一">星期一</option>
+              <option value="星期二" selected>星期日</option>
+            {% endif %}
+            
+        </select>
+      </tr>
+      <tr>
+        <th>課程費用</th>
+        <td><input class="form-control" type="text" value="{{ data.課程費用 }}" name="price" required></td>
+      </tr>
+      <tr>
+        <th>堂數</th>
         <td>
           <select class="form-control" name="category">
-            {% if data.類別 == 'CD' %}
-              <option value="BOOK">BOOK</option>
-              <option value="DVD">DVD</option>
-              <option value="CD" selected>CD</option>
-            {% elif data.類別 == 'DVD' %}
-              <option value="BOOK">BOOK</option>
-              <option value="DVD" selected>DVD</option>
-              <option value="CD">CD</option>
+            {% if data.堂數 == '一堂' %}
+              <option value="5">五堂</option>
+              <option value="3">三堂</option>
+              <option value="1" selected>一堂</option>
+            {% elif data.堂數 == '三堂' %}
+              <option value="5">五堂</option>
+              <option value="3" selected>三堂</option>
+              <option value="1">一堂</option>
             {% else %}
-              <option value="BOOK" selected>BOOK</option>
-              <option value="DVD">DVD</option>
-              <option value="CD">CD</option>
+              <option value="5" selected>五堂</option>
+              <option value="3">三堂</option>
+              <option value="1">一堂</option>
             {% endif %}
             
         </select>

@@ -5,6 +5,7 @@ from api.sql import *
 import imp, random, os, string
 from werkzeug.utils import secure_filename
 from flask import current_app
+from datetime import datetime
 
 UPLOAD_FOLDER = 'static/product'
 ALLOWED_EXTENSIONS = set(['png', 'jpg', 'jpeg'])
@@ -51,10 +52,13 @@ def book():
     book_data = []
     for i in book_row:
         book = {
-            '商品編號': i[0],
-            '商品名稱': i[1],
-            '商品售價': i[2],
-            '商品類別': i[3]
+            '課程編號': i[0],
+            '課程名稱': i[4],
+            '課程費用': i[1],
+            '教師名稱': i[7],
+            '開課時間': i[2],
+            '課程描述': i[3],
+            '堂數': i[8],
         }
         book_data.append(book)
     return book_data
@@ -66,13 +70,20 @@ def add():
         while(data != None):
             number = str(random.randrange( 10000, 99999))
             en = random.choice(string.ascii_letters)
-            pid = en + number
-            data = Product.get_product(pid)
+            courseID = en + number
+            data = Product.get_product(courseID)
 
         name = request.values.get('name')
+        teacher = request.values.get('teacher')
+        courseDate = request.values.get('courseDate')
+        courseTime = request.values.get('courseTime')
+        Week = request.values.get('Week')
         price = request.values.get('price')
         category = request.values.get('category')
         description = request.values.get('description')
+        
+        # Convert string to date object
+        courseDate = datetime.strptime(courseDate, '%Y-%m-%d').date()
         if (len(name) < 1 or len(price) < 1):
             return redirect(url_for('manager.productManager'))
 
@@ -84,11 +95,15 @@ def add():
             '''
 
         Product.add_product(
-            {'pid' : pid,
+            {'pid' : courseID,
              'name' : name,
+             'teacher' : teacher,
+             'courseDate' : courseDate,
+             'courseTime' : courseTime,
+             'Week' : Week,
              'price' : price,
              'category' : category,
-             'description':description
+             'description' : description,
             }
         )
 
@@ -109,6 +124,10 @@ def edit():
             {
             'name' : request.values.get('name'),
             'price' : request.values.get('price'),
+            'courseDate' : datetime.strptime(request.values.get('courseDate'), '%Y-%m-%d').date(),
+            'teacher' : request.values.get('teacher'),
+            'courseTime' : request.values.get('courseTime'),
+            'Week' : request.values.get('Week'),
             'category' : request.values.get('category'), 
             'description' : request.values.get('description'),
             'pid' : request.values.get('pid')
@@ -125,17 +144,25 @@ def edit():
 def show_info():
     pid = request.args['pid']
     data = Product.get_product(pid)
-    pname = data[1]
-    price = data[2]
-    category = data[3]
-    description = data[4]
+    name = data[4]
+    starttime = data[2]
+    price = data[1]
+    teacher = data[7]
+    category = data[8]
+    description = data[3]
+    courseTime = data[5]
+    week = data[6]
 
     product = {
-        '商品編號': pid,
-        '商品名稱': pname,
-        '單價': price,
-        '類別': category,
-        '商品敘述': description
+        '課程編號': pid,
+        '課程名稱': name,
+        '教師名稱': teacher,
+        '開課日期': starttime,
+        '開課時間': courseTime,
+        '每週開課日': week,
+        '課程費用': price,
+        '堂數': category,
+        '課程描述': description
     }
     return product
 

@@ -34,9 +34,9 @@ def login():
         data = Member.get_member(account) 
 
         try:
-            DB_password = data[0][1]
-            user_id = data[0][2]
-            identity = data[0][3]
+            DB_password = data[0][4]
+            user_id = data[0][0]
+            identity = data[0][5]
 
         except:
             flash('*沒有此帳號')
@@ -74,6 +74,8 @@ def register():
         else:
             input = { 
                 'name': request.form['username'], 
+                'email': request.form['email'], 
+                'age': request.form['age'], 
                 'account':user_account, 
                 'password':request.form['password'], 
                 'identity':request.form['identity'] 

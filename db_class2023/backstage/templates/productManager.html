@@ -3,7 +3,7 @@
 {{ super() }}
 {% endblock head %}
 
-{% block title %} 商品管理 {% endblock title %}
+{% block title %} 課程資訊 {% endblock title %}
 
 {% block content %}
 
@@ -69,30 +69,55 @@
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="staticBackdropLabel">新增商品</h5>
+                    <h5 class="modal-title" id="staticBackdropLabel">新增課程</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
                     <div class="mb-3">
-                        <label for="inputProductName" class="form-label">商品名稱</label>
+                        <label for="inputProductName" class="form-label">課程名稱</label>
                         <input type="text" class="form-control" id="inputProductName" name="name" required>
                     </div>
                     <div class="mb-3">
-                        <label for="inputUnitPrice" class="form-label">商品單價</label>
+                        <label for="inputTeacherName" class="form-label">教師名稱</label>
+                        <input type="text" class="form-control" id="inputTeacherName" name="teacher" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="inputDate" class="form-label">開課日期</label>
+                        <input type="date" class="form-control" id="inputDate" name="courseDate" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="inputTime" class="form-label">開課時間</label>
+                        <input type="text" class="form-control" value="下午2點" id="inputTime" name="courseTime" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="inputWeek" class="form-label">每週開課日</label>
+                        <select id="inputWeek" class="form-select" name="Week" required>
+                            <option selected disabled value="">請選擇星期幾</option>
+                            <option value="星期一">星期一</option>
+                            <option value="星期二">星期二</option>
+                            <option value="星期三">星期三</option>
+                            <option value="星期四">星期四</option>
+                            <option value="星期五">星期五</option>
+                            <option value="星期六">星期六</option>
+                            <option value="星期日">星期日</option>
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <label for="inputUnitPrice" class="form-label">課程費用</label>
                         <input type="number" class="form-control" id="inputUnitPrice" name="price" required>
                     </div>
                     <div class="mb-3">
-                        <label for="inputProductCategory" class="form-label">商品種類</label>
+                        <label for="inputProductCategory" class="form-label">堂數</label>
                         <select id="inputProductCategory" class="form-select" name="category" required>
-                            <option selected disabled value="">請選擇類型</option>
-                            <option value="BOOK">BOOK</option>
-                            <option value="CD">CD</option>
-                            <option value="DVD">DVD</option>
+                            <option selected disabled value="">請選擇堂數</option>
+                            <option value="1">1堂</option>
+                            <option value="3">3堂</option>
+                            <option value="5">5堂</option>
                         </select>
                     </div>
                     <div class="mb-3">
                         <label for="inputProductDesc" class="form-label">商品敘述</label>
-                        <textarea class="form-control" id="inputProductDesc" name="description" required></textarea>
+                        <textarea type-="text" class="form-control" id="inputProductDesc" name="description" required></textarea>
                     </div>
                     <!-- <div class="mb-3">
                         <label for="inputProductImg" class="form-label">商品圖片</label><br/>
@@ -115,22 +140,28 @@
 <table id="manager" class="table table-bordered">
     <thead>
         <tr>
-            <th width="10%"><center>商品編號</center></th>
-            <th width="20%"><center>商品名稱</center></th>
-            <th width="15%"><center>商品單價</center></th>
-            <th width="15%"><center>商品類別</center></th>
+            <th width="10%"><center>課程編號</center></th>
+            <th width="20%"><center>課程名稱</center></th>
+            <th width="10%"><center>教師名稱</center></th>
+            <th width="10%"><center>開課時間</center></th>
+            <th width="10%"><center>課程費用</center></th>
+            <th width="10%"><center>堂數</center></th>
+            <th width="15%"><center>課程描述</center></th>
             <th colspan="2"><center>資料操作</center></th>
         </tr>
     </thead>
     <tbody id="product">
     {% for i in book_data %}
         <tr>
-            <td><center>{{ i.商品編號 }}</center></td>
-            <td><center>{{ i.商品名稱 }}</center></td>
-            <td><center>{{ i.商品售價 }}</center></td>
-            <td><center>{{ i.商品類別 }}</center></td>
-            <td><center><button type="submit" value="{{i.商品編號}}" name="edit" class="btn btn-success">編輯商品</button></center></td>
-            <td><center><button type="submit" value="{{i.商品編號}}" name="delete" onclick="return (confirm('你確定要刪除 \'{{ i.商品名稱 }}\' 嗎？'))" class="btn btn-danger">刪除商品</button></center></td>
+            <td><center>{{ i.課程編號 }}</center></td>
+            <td><center>{{ i.課程名稱 }}</center></td>
+            <td><center>{{ i.教師名稱 }}</center></td>
+            <td><center>{{ i.開課時間 }}</center></td>
+            <td><center>{{ i.課程費用 }}</center></td>
+            <td><center>{{ i.堂數 }}</center></td>
+            <td><center>{{ i.課程描述 }}</center></td>
+            <td><center><button type="submit" value="{{i.課程編號}}" name="edit" class="btn btn-success">編輯商品</button></center></td>
+            <td><center><button type="submit" value="{{i.課程編號}}" name="delete" onclick="return (confirm('你確定要刪除 \'{{ i.課程名稱 }}\' 嗎？'))" class="btn btn-danger">刪除商品</button></center></td>
         </tr>
     {% endfor %}
     </tbody>
