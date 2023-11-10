@@ -1,36 +1,92 @@
-{% extends "backstage.html" %}
-{% block head %}
-{{ super() }}
-{% endblock head %}
-{% block title %}後台資料分析{% endblock title%}
-{% block content %}
+{% extends "backstage.html" %} {% block head %} {{ super() }} {% endblock head
+%} {% block title %}後台資料分析{% endblock title%} {% block content %}
 
 <div class="my-3 p-3 bg-body rounded shadow-sm">
   <!-- Dashboard -->
   <div id="dashboard">
     <nav>
       <div class="nav nav-tabs" id="nav-tab" role="tablist">
-        <button class="nav-link active" id="nav-home-tab" data-bs-toggle="tab" data-bs-target="#nav-home" type="button" role="tab" aria-controls="nav-home" aria-selected="true">訂單數量分析</button>
-        <button class="nav-link" id="nav-profile-tab" data-bs-toggle="tab" data-bs-target="#nav-profile" type="button" role="tab" aria-controls="nav-profile" aria-selected="false">書本銷量分類</button>
-        <button class="nav-link" id="nav-contact-tab" data-bs-toggle="tab" data-bs-target="#nav-contact" type="button" role="tab" aria-controls="nav-contact" aria-selected="false">消費總額排名</button>        
-      </div>      
+        <button
+          class="nav-link active"
+          id="nav-home-tab"
+          data-bs-toggle="tab"
+          data-bs-target="#nav-home"
+          type="button"
+          role="tab"
+          aria-controls="nav-home"
+          aria-selected="true"
+        >
+          訂單總額分析
+        </button>
+        <button
+          class="nav-link"
+          id="nav-profile-tab"
+          data-bs-toggle="tab"
+          data-bs-target="#nav-profile"
+          type="button"
+          role="tab"
+          aria-controls="nav-profile"
+          aria-selected="false"
+        >
+          各科目銷量分析
+        </button>
+        <button
+          class="nav-link"
+          id="nav-contact-tab"
+          data-bs-toggle="tab"
+          data-bs-target="#nav-contact"
+          type="button"
+          role="tab"
+          aria-controls="nav-contact"
+          aria-selected="false"
+        >
+          使用者消費排名
+        </button>
+      </div>
     </nav>
   </div>
-  <br/>
+  <br />
   <div class="tab-content" id="nav-tabContent">
-    <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
-      <center> 
-        <div id="maina" class="container-fluid" style="width:1200px;height:500px"></div>
+    <div
+      class="tab-pane fade show active"
+      id="nav-home"
+      role="tabpanel"
+      aria-labelledby="nav-home-tab"
+    >
+      <center>
+        <div
+          id="maina"
+          class="container-fluid"
+          style="width: 1200px; height: 500px"
+        ></div>
       </center>
     </div>
-    <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
+    <div
+      class="tab-pane fade"
+      id="nav-profile"
+      role="tabpanel"
+      aria-labelledby="nav-profile-tab"
+    >
       <center>
-        <div id="mainb" class="container-fluid" style="width: 600px;height:500px"></div>
+        <div
+          id="mainb"
+          class="container-fluid"
+          style="width: 600px; height: 500px"
+        ></div>
       </center>
     </div>
-    <div class="tab-pane fade" id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab">
+    <div
+      class="tab-pane fade"
+      id="nav-contact"
+      role="tabpanel"
+      aria-labelledby="nav-contact-tab"
+    >
       <center>
-        <div id="mainc" class="container-fluid" style="width: 1200px;height:500px"></div>
+        <div
+          id="mainc"
+          class="container-fluid"
+          style="width: 1200px; height: 500px"
+        ></div>
       </center>
     </div>
   </div>
@@ -44,7 +100,7 @@
   var count = {{dataa|tojson}};
   var optiona = {
     title: {
-      text: '各月訂單數量分析'
+      text: '各月訂單總額分析'
     },
     tooltip: {},
     legend: {
@@ -86,7 +142,7 @@
   var data = {{datab|tojson}};
   var optionb = {
     title: {
-      text: '各類商品銷量分析',
+      text: '各科目銷量分析',
       left: 'center',
       top: 'center'
     },
@@ -99,7 +155,7 @@
     series: [
       {
         type: 'pie',
-        data: data,          
+        data: data,
         radius: ['40%', '70%']
       }
     ]
@@ -175,7 +231,7 @@
   setTimeout(function() {
     run();
   }, 0);
-        
+
   setInterval(function() {
     update();
   }, 3000);
@@ -183,7 +239,6 @@
   optiona && myCharta.setOption(optiona);
   optionb && myChartb.setOption(optionb);
   optionc && myChartc.setOption(optionc);
-      
 </script>
 
 {% endblock content %}
