@@ -6,7 +6,7 @@
 {% block title %}BookStore{% endblock title%}
 
 {% block content %}
-<!-- <form method="post" action="#"> -->
+<!--<form method="post" enctype=multipart/form-data action="#"> -->
   {% for i in data %}
   <div class="modal fade" id="staticBackdrop{{i.訂單編號}}" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
       <div class="modal-dialog">
@@ -16,34 +16,38 @@
                   <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
               </div>
               <div class="modal-body">
+                <form method="post" action=“#”> 
                   <div class="mb-3">
                     <table class="table table-bordered">
                       <tr>
                         <th><center>商品名稱</center></th>
-                        <th><center>商品單價</center></th>
-                        <th><center>訂購數量</center></th>
+                        <!-- <th><center>商品單價</center></th>
+                        <th><center>訂購數量</center></th> -->
+                        <th><center>對課程評價</center></th> <!-- 新增輸入框列 -->
                       </tr>
                       
                       {% for j in detail %}
                       {% if j.訂單編號 == i.訂單編號 %}
                       <tr>
                         <td> <center>{{ j.商品名稱 }}</center></td>
-                        <td> <center>{{ j.商品單價 }}</center></td>
-                        <td> <center>{{ j.訂購數量 }}</center></td>
+                        <!-- <td> <center>{{ j.商品單價 }}</center></td>
+                        <td> <center>{{ j.訂購數量 }}</center></td> -->
+                        <td> <center><input type="text" name="input_text" class="form-control"></center></td> <!-- 輸入框 -->
                       </tr>
                       {% endif %}
                       {% endfor %}
                     </table>
                   </div>
+                </form>
               </div>
               <div class="modal-footer">
-                  <button type="button" class="btn btn-outline-success" data-bs-dismiss="modal" style="width:30%;">回訂單</button>
+                  <button type="button" class="btn btn-outline-success" data-bs-dismiss="modal" style="width:30%;">送出評價</button>
               </div>
           </div>
       </div>
   </div>
   {% endfor %}
-<!-- </form> -->
+<!-- </form>  -->
 
 
 
@@ -65,7 +69,7 @@
         <td width="20%">
           <center>
             <button type="button" class="btn btn-outline-success" data-bs-toggle="modal" data-bs-target="#staticBackdrop{{i.訂單編號}}">
-              查看訂單細項
+              評價課程
             </button>
           </center>
         </td>

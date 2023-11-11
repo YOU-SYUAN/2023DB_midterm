@@ -156,7 +156,7 @@ def bookstore():
 @store.route('/cart', methods=['GET', 'POST'])
 @login_required # 使用者登入後才可以看
 def cart():
-
+   
     # 以防管理者誤闖
     if request.method == 'GET':
         if( current_user.role == 'manager'):
@@ -215,13 +215,25 @@ def cart():
             Order_List.add_order( {'mid': current_user.id, 'time':time, 'total':total, 'format':format, 'tno':tno} )
 
             return render_template('complete.html', user=current_user.name)
-
+        
     product_data = only_cart()
     
     if product_data == 0:
         return render_template('empty.html', user=current_user.name)
     else:
         return render_template('cart.html', data=product_data, user=current_user.name)
+
+# @store.route('addFeedback', methods=['POST'])
+# def addFeedback():
+#     if request.method == 'POST':
+#         input_text = request.form.get('input_text')
+
+#         # 在這裡處理 input_text，可以將它存儲到數據庫中，或執行其他相應的操作
+#         # 這只是一個簡單的示例，你應該根據你的需求進行適當的處理
+
+#         return render_template('your_template.html')  # 返回模板，可以是原始頁面或其他頁面
+
+
 
 @store.route('/order')
 def order():

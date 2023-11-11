@@ -23,10 +23,10 @@
   <form method="post" action={{ url_for('bookstore.cart') }}>
     <table class="table table-bordered">
       <tr>
-        <th><center>科目別</center></th>
-        <th><center>家教名稱</center></th>
-        <th><center>課程費用(每小時)</center></th>
-        <th><center>時數</center></th>
+        <th><center>科目</center></th>
+        <th><center>老師名稱</center></th>
+        <th><center>課程費用(每堂)</center></th>
+        <th><center>堂數</center></th>
         <th><center>商品操作</center></th>
       </tr>
       {% for book in data %}
@@ -36,7 +36,12 @@
         <td> <center>{{ book.商品價格 }}</center></td>
         <td width="20%">
           <center>
-            <input class="form-control" type="number" onkeyup="value=value.replace(/[^\d]/g,'')" min="1" value="{{ book.數量 }}" name="{{ book.商品編號 }}">
+            <select class="form-control" name="{{ book.商品編號 }}">
+              {% for quantity in [8, 12, 16, 20, 24] %}  {# assuming you want a dropdown from 1 to 10 #}
+              <option value="{{ quantity }}" {% if quantity == book.數量 %}selected{% endif %}>{{ quantity }}</option>
+              {% endfor %}
+            </select>
+            <!-- <input class="form-control" type="number" onkeyup="value=value.replace(/[^\d]/g,'')" min="1" value="{{ book.數量 }}" name="{{ book.商品編號 }}"> -->
           </center>
         </td>
         <td>
@@ -48,6 +53,7 @@
       </td>
       </tr>
       {% endfor %}
+     
     </table>
     <center>
       <div class="option">

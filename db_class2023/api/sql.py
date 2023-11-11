@@ -190,5 +190,13 @@ class Analysis():
         return DB.fetchall( DB.execute_input( DB.prepare(sql), {'identity':'user'}))
 
     def member_sale_count():
+<<<<<<< Updated upstream
         sql = 'SELECT COUNT(*), STUDENT.STUDENTID, STUDENT.SNAME FROM RESERVATION, STUDENT WHERE RESERVATION.STUDENTID = STUDENT.STUDENTID AND STUDENT.IDENTITY = :identity GROUP BY STUDENT.STUDENTID, STUDENT.SNAME ORDER BY COUNT(*) DESC'
         return DB.fetchall( DB.execute_input( DB.prepare(sql), {'identity':'user'}))
+=======
+        sql = 'SELECT COUNT(*), MEMBER.MID, MEMBER.NAME FROM ORDER_LIST, MEMBER WHERE ORDER_LIST.MID = MEMBER.MID AND MEMBER.IDENTITY = :identity GROUP BY MEMBER.MID, MEMBER.NAME ORDER BY COUNT(*) DESC'
+        return DB.fetchall( DB.execute_input( DB.prepare(sql), {'identity':'user'}))
+    
+
+        
+>>>>>>> Stashed changes
